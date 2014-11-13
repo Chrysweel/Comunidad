@@ -1,0 +1,29 @@
+parameters:
+
+services:
+    ant.manager.community:
+         class: Ant\LeagueBundle\EntityManager\CommunityManager
+         arguments: [ @doctrine.orm.entity_manager, 'Ant\LeagueBundle\Entity\Community', @ant.filter.model_manager.filterable]
+    ant.manager.game:
+         class: Ant\LeagueBundle\EntityManager\GameManager
+         arguments: [ @doctrine.orm.entity_manager, 'Ant\LeagueBundle\Entity\Game']
+         
+    ant.entity_manager.match:
+         class: Ant\LeagueBundle\EntityManager\MatchManager
+         arguments: [ @doctrine.orm.entity_manager, 'Ant\LeagueBundle\Entity\Match']
+         
+    ant.manager.match:
+         class: Ant\LeagueBundle\ModelManager\MatchManager
+         arguments: [ @event_dispatcher, @ant.entity_manager.match]
+         
+    ant.form.type.game:
+        class: Ant\LeagueBundle\Form\Type\GameType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: game_selector }
+            
+    ant.form.type.community:
+        class: Ant\LeagueBundle\Form\Type\CommunityType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: community_selector }

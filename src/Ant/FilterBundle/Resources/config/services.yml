@@ -1,0 +1,7 @@
+parameters:
+#    filter.example.class: Ant\FilterBundle\Example
+
+services:
+    ant.filter.model_manager.filterable:
+        class: Ant\FilterBundle\ModelManager\FilterableManager
+#        arguments: [%array_valid_orders%]

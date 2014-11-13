@@ -1,0 +1,11 @@
+communities:
+    type:     rest
+    resource: Ant\LeagueBundle\Controller\CommunityController
+    
+match:
+    type:     rest
+    resource: Ant\LeagueBundle\Controller\MatchController 
+
+game:
+    type:     rest
+    resource: Ant\LeagueBundle\Controller\GameController       

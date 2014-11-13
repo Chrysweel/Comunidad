@@ -1,0 +1,61 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+        chromephp:
+            type:  chromephp
+            level: info
+
+assetic:
+    use_controller: true
+    
+#raul_fraile_ladybug > v.07
+raul_fraile_ladybug:
+    general:
+        expanded: false
+    object:
+        max_nesting_level:    3
+        show_data:            true
+        show_classinfo:       true
+        show_constants:       true
+        show_methods:         true
+        show_properties:      true
+    array:
+        max_nesting_level:    8
+    processor:
+        active:               true
+    bool:
+        html_color:           #008
+        cli_color:            blue
+    float:
+        html_color:           #800
+        cli_color:            red
+    int:
+        html_color:           #800
+        cli_color:            red
+    string:
+        html_color:           #080
+        cli_color:            green
+        show_quotes:          true
+#    css:
+#        path:                 %kernel.root_dir%/Asset/tree.min.css
+#swiftmailer:
+#    delivery_address: me@example.com
