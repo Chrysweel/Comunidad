@@ -14,7 +14,7 @@ class MatchController extends BaseController
 	
 	/**
 	 * @ApiDoc(
-	 *  description="Create a new Community",
+	 *  description="Create a new match",
 	 *  input="Ant\LeagueBundle\Form\MatchType",
 	 *  statusCodes={
 	 *         201="Returned when successful",

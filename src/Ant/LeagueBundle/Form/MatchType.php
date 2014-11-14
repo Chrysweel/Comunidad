@@ -40,6 +40,6 @@ class MatchType extends AbstractType
      */
     public function getName()
     {
-        return 'ant_leaguebundle_match';
+        return '';
     }
 }
