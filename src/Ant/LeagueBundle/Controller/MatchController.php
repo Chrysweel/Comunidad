@@ -38,7 +38,9 @@ class MatchController extends BaseController
 			$entity = $form->getData();
 			// perform some action, such as saving the task to the database
 			$this->getMatchManager()->save($entity);
-		
+			//hacemos esto porque al guardar un partido, guardamos en la comunidad sus participantes
+			//no quier hacer evento, ni inyectar el manager
+			$this->getCommunityManager()->save($entity->getCommunity());
 			return $this->buildResourceView($entity, 201, null);
 		}else{
 			return $this->buildFormErrorsView($form);
@@ -53,5 +55,10 @@ class MatchController extends BaseController
 	private function getMatchManager()
 	{
 		return $this->get('ant.manager.match');
+	}
+	
+	private function getCommunityManager()
+	{
+		return $this->get('ant.manager.community');
 	}
 }

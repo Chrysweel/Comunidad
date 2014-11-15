@@ -133,10 +133,13 @@ class Community extends BaseCommunity
      * @param \Ant\UserBundle\Entity\User $participants
      * @return Community
      */
-    public function addParticipant(\Ant\UserBundle\Entity\User $participants)
+    public function addParticipant(\Ant\UserBundle\Entity\User $participant)
     {
-        $this->participants[] = $participants;
-
+    	if (!$this->participants->contains($participant)){
+    		$this->participants[] = $participant;
+    		$participant->addCommunity($this);
+    	}
+    	
         return $this;
     }
 
@@ -171,7 +174,6 @@ class Community extends BaseCommunity
         $this->owner = $owner;
 		
         $this->addParticipant($owner);
-        $owner->addCommunity($this);
 		
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace Ant\LeagueBundle\ModelManager;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class MatchManager
 {
@@ -19,7 +20,16 @@ class MatchManager
 	
 	public function save($match)
 	{
-		$this->manager->doSave($match);
+		if ($match->getCreatedBy() == $match->getCommunity()->getOwner()){
+			$this->manager->doSave($match);
+			
+			$match->getCommunity()->addParticipant($match->getVisitor());
+			$match->getCommunity()->addParticipant($match->getLocal());
+			
+		}else{
+			throw new AccessDeniedHttpException('You must owner of community to register a match');
+		}
+		
 	}
 	
 }
