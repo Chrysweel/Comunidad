@@ -24,6 +24,11 @@ class GameManager extends BaseGameManager
 	{
 		return $this->repository->findOneById($id);
 	}
+	
+	public function findAll()
+	{
+		return $this->repository->findAll();
+	}
 
 	public function doSave($entity)
 	{

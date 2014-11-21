@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class GameController extends BaseController
 {
 	
-/**
+	/**
 	 * @ApiDoc(
 	 *  description="Create a new Game",
 	 *  input="Ant\LeagueBundle\Form\GameType",
@@ -48,7 +48,23 @@ class GameController extends BaseController
     	}
     }
     
-    
+	/**
+	 * @ApiDoc(
+	 *  description="Get games",
+	 *  output="Ant\LeagueBundle\Entity\Game",
+	 *  statusCodes={
+     *         200="Returned when successful",
+     *         403="Returned when the user is not authorized to get games",
+     *     },
+     * section="games"
+	 * )
+	 */
+    public function getGamesAction(Request $request)
+    {
+    	$games = $this->getGameManager()->getAll();
+
+    	return $this->buildResourceView($games, 200, null);
+    }
     
     
     private function getGameManager()

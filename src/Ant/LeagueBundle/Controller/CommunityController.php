@@ -10,6 +10,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 use Symfony\Component\HttpFoundation\Request;
 
+use FOS\RestBundle\Controller\Annotations\RequestParam;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class CommunityController extends BaseController
@@ -138,6 +140,38 @@ class CommunityController extends BaseController
     	return $this->buildResourceView($communities, 200, null);
     }
     
+    /**
+     * @ApiDoc(
+     *  description="Add a participant to community",
+     *  output="Ant\LeagueBundle\Entity\Community",
+     *  statusCodes={
+     *         201="Returned when successful",
+     *         403="Returned when the user is not authorized to say hello",
+     *         404={
+     *           "Returned when the user is not found",
+     *           "Returned when something else is not found"
+     *         }
+     *     },
+     * section="community"
+     * )
+     * @ParamConverter("community", class="LeagueBundle:Community")
+     * @RequestParam(name="username", description="Username")
+     */
+    public function postCommunityUsersAction(Community $community, Request $request)
+    {
+    	$username = $request->request->get('username');
+    	
+    	$user = $this->getUserManager()->findUserByUsername($username);
+    	
+    	if (!$user) {
+    		throw $this->createNotFoundException('User not found!');
+    	}else{
+    		$this->getCommunityManager()->addParticipant($community, $user);
+    		
+    		return $this->buildResourceView($community, 200, null);
+    	}
+    }
+    
     
     
     public function patchCommunitiesAction()
@@ -149,6 +183,12 @@ class CommunityController extends BaseController
     {
     	
     }
+    
+    
+    protected function getUserManager()
+    {
+    	return $this->container->get('fos_user.user_manager');
+    } 
     
     private function getCommunityManager()
     {

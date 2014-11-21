@@ -19,4 +19,9 @@ abstract class GameManager
 	{
 		return $this->doSave($game);
 	}
+	
+	public function getAll()
+	{
+		return $this->findAll();
+	}
 }

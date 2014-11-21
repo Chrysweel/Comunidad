@@ -1,17 +1,14 @@
 <?php
 
 
-namespace Ant\UserBundle\Controller;
+namespace Ant\LeagueBundle\Controller;
 
-use Ant\LeagueBundle\Controller\BaseController;
-
-
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * @author pc
  */
-class UserController extends BaseController
+class UserController extends Controller
 {
 	
 	/**
@@ -30,7 +27,7 @@ class UserController extends BaseController
      */
     public function getUsersAction()
     {
-    	$users = $this->getUserManager()->findUsers();
+    	$users = $this->getUserManager->findUsers();
     	 
     	return $this->buildResourceView($users, 200, null);
     }
