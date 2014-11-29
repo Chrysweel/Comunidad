@@ -7,6 +7,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ant\LeagueBundle\Entity\Match;
 use Ant\LeagueBundle\Form\MatchType;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Symfony\Component\HttpFoundation\Request;
 
 class MatchController extends BaseController
@@ -47,9 +49,26 @@ class MatchController extends BaseController
 		}
 	}
 	
-	public function deleteMatchAction()
+	/**
+	 * @ApiDoc(
+	 *  description="Delete a match",
+	 *  statusCodes={
+	 *         200="Returned when successful",
+	 *         403="Returned when the user is not authorized to say hello",
+	 *         404={
+	 *           "Returned when the user is not found",
+	 *           "Returned when something else is not found"
+	 *         }
+	 *     },
+	 * section="match"
+	 * )
+	 * @ParamConverter("match", class="LeagueBundle:Match")
+	 */
+	public function deleteMatchAction(Match $match)
 	{
+		$this->get('ant.manager.match')->delete($match);
 		
+		return $this->buildResourceView('match deleted succesfully', 200, null);
 	}
 	
 	private function getMatchManager()

@@ -26,5 +26,11 @@ class MatchManager
 		$this->em->persist($match);
 		$this->em->flush();
 	}
+	
+	public function doDelete(Match $match)
+	{
+		$this->em->remove($match);
+		$this->em->flush();
+	}
 
 }

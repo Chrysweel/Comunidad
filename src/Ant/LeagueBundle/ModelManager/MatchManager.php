@@ -32,4 +32,9 @@ class MatchManager
 		
 	}
 	
+	public function delete($match)
+	{
+		return $this->manager->doDelete($match);
+	}
+	
 }
