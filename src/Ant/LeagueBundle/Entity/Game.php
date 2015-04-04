@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Ant\LeagueBundle\Model\Game as BaseGame;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use JMS\Serializer\Annotation\MaxDepth;
@@ -39,8 +40,9 @@ class Game extends BaseGame
 	protected $numberPlayers;
 		
 	/**
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string" , nullable=true)
 	 * @var string
+     * @Assert\Null()
 	 */
 	protected $website;
 	

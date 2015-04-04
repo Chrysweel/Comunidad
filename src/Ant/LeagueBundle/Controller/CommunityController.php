@@ -75,6 +75,29 @@ class CommunityController extends BaseController
     
     /**
      * @ApiDoc(
+     *  description="Get Community statistics",
+     *  output="Ant\LeageBundle\Entity\Community",
+     *  statusCodes={
+     *         201="Returned when successful",
+     *         403="Returned when the user is not authorized to say hello",
+     *         404={
+     *           "Returned when the user is not found",
+     *           "Returned when something else is not found"
+     *         }
+     *     },
+     * section="community"
+     * )
+     * @ParamConverter("community", class="LeagueBundle:Community")
+     */
+    public function getCommunityStatisticsAction(Community $community)
+    {
+    	$statistics = $this->get('ant.manager.community')->getStatistics($community->getId());
+
+    	return $this->buildResourceView($statistics, 200, null);
+    }
+    
+    /**
+     * @ApiDoc(
      *  description="Get Community",
      *  output="Ant\LeageBundle\Entity\Community",
      *  statusCodes={

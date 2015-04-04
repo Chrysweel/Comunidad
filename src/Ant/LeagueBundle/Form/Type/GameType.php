@@ -34,7 +34,7 @@ class GameType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'invalid_message' => 'The selected issue does not exist',
+				'invalid_message' => 'The selected game does not exist',
 		));
 	}
 
