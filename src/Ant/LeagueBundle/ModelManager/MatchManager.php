@@ -36,5 +36,10 @@ class MatchManager
 	{
 		return $this->manager->doDelete($match);
 	}
+
+	public function findMatchesByUser($user)
+	{
+		return $this->manager->doFindMatchesByUser($user);
+	}
 	
 }

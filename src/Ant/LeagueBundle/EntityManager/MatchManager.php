@@ -33,4 +33,20 @@ class MatchManager
 		$this->em->flush();
 	}
 
+	public function doFindMatchesByUser($user)
+	{
+		$id = $user->getId();
+		$qb = $this->repository->createQueryBuilder('m');
+
+		$qb
+		    ->where($qb->expr()->orX(
+			   $qb->expr()->eq('m.local', ':user_id'),
+			   $qb->expr()->eq('m.visitor', ':user_id')
+			))
+		    ->setParameter('user_id', $id);
+
+		$matches_of_user = $qb->getQuery()->getResult();
+		return $matches_of_user;
+	}
+
 }
